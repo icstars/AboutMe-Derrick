@@ -21,30 +21,32 @@ class View {
         throw new MissingElementError(`Element id: ${$id}: ${$id[elem_id]} .`);
       }
     }
+
+    this.DOM[$HTML_IDS.PORTFOLIO_BTN].addEventListener('click', () => {
+      this.scrollToElement($HTML_IDS.PORTFOLIO_SECTION);
+    })
+
+    this.DOM[$HTML_IDS.HOME_BTN].addEventListener("click", () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    });
+
+    this.DOM[$HTML_IDS.CONTACT_BTN].addEventListener('click', () => {
+      this.scrollToElement($HTML_IDS.CONTACT_SESSION);
+    })
+
   }
 
-
-
-}
-
-if (!homeBtn | !portfolioBtn) {
-  alert("Element is not on the page.")
-}
-
-homeBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-});
-
-portfolioBtn.addEventListener('click', () => {
-  scrollToElement()
-})
-
-function scrollToElement(elementId) {
-  const element = document.querySelector(elementId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+  scrollToElement(elementId) {
+    const element = document.querySelector('#' + elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
+
 }
+
+const view = new View();
+
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {

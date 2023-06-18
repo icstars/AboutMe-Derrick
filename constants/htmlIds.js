@@ -1,7 +1,10 @@
 const HTML_IDS = {
   PORTFOLIO_BTN: 'directory-portfolio-btn',
   CONTACT_BTN: 'directory-contact-btn',
-  HOME_BTN: 'directory-logo'
+  HOME_BTN: 'directory-logo',
+  ABOUT_ME_SECTION: 'about-me-section',
+  PORTFOLIO_SECTION: 'portfolio-section',
+  CONTACT_SESSION: 'contact-session',
 };
 
 

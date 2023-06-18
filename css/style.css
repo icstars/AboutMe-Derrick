@@ -133,11 +133,13 @@ section {
   box-shadow: 5px 2px 10px rgba(66, 188, 245, 0.8);
   outline: rgb(255, 252, 242) 1px solid;
   transform: scale(2);
+  filter: grayscale(0);
 }
 
 #directory-logo img:focus {
   box-shadow: 5px 2px 8px rgba(66, 188, 245, 0.8);
   outline: rgb(255, 252, 242) 1px solid;
+  filter: grayscale(0);
 }
 
 #directory-logo img {
@@ -146,6 +148,7 @@ section {
   width: 2rem;
   transform: scale(1.5);
   margin-top: 2%;
+  filter: grayscale(75%);
 }
 
 .websiteLink {
