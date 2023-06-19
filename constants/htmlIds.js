@@ -4,7 +4,12 @@ const HTML_IDS = {
   HOME_BTN: 'directory-logo',
   ABOUT_ME_SECTION: 'about-me-section',
   PORTFOLIO_SECTION: 'portfolio-section',
-  CONTACT_SESSION: 'contact-session',
+  CONTACT_SESSION: 'contact-section',
+  PREV_BTN_SLIDESHOW: 'prev-btn-slideshow',
+  NEXT_BTN_SLIDESHOW: 'next-btn-slideshow',
+  DOT_1: 'dot1',
+  DOT_2: 'dot2',
+  DOT_3: 'dot3',
 };
 
 

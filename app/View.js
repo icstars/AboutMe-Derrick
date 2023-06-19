@@ -1,7 +1,6 @@
 import { HTML_IDS as $HTML_IDS } from "../constants/htmlIds.js";
 
 let homeBtn = document.getElementById("directory-logo");
-let portfolioBtn = document.getElementById("directory-portfolio-btn");
 
 class MissingElementError extends Error {
   constructor(message) {
@@ -12,6 +11,8 @@ class MissingElementError extends Error {
 
 class View {
   DOM = [];
+  slideShowIndex = 1;
+
   constructor() {
     for (let elem_id in $HTML_IDS) {
       let elem = document.getElementById($HTML_IDS[elem_id]);
@@ -21,6 +22,8 @@ class View {
         throw new MissingElementError(`Element id: ${$id}: ${$id[elem_id]} .`);
       }
     }
+
+    this.currentSlide(1);
 
     this.DOM[$HTML_IDS.PORTFOLIO_BTN].addEventListener('click', () => {
       this.scrollToElement($HTML_IDS.PORTFOLIO_SECTION);
@@ -32,8 +35,52 @@ class View {
 
     this.DOM[$HTML_IDS.CONTACT_BTN].addEventListener('click', () => {
       this.scrollToElement($HTML_IDS.CONTACT_SESSION);
-    })
+    });
 
+    this.DOM[$HTML_IDS.PREV_BTN_SLIDESHOW].addEventListener('click', () => {
+      this.incrementSlideshow(-1);
+    });
+
+    this.DOM[$HTML_IDS.NEXT_BTN_SLIDESHOW].addEventListener('click', () => {
+      this.incrementSlideshow(1);
+    });
+
+    this.DOM[$HTML_IDS.DOT_1].addEventListener('click', () => {
+      this.currentSlide(1)
+    });
+
+    this.DOM[$HTML_IDS.DOT_2].addEventListener('click', () => {
+      this.currentSlide(2)
+    });
+
+    this.DOM[$HTML_IDS.DOT_3].addEventListener('click', () => {
+      this.currentSlide(3);
+    });
+
+  }
+
+  incrementSlideshow(n) {
+    this.showSlides(this.slideShowIndex += n);
+  }
+
+  currentSlide(n) {
+    this.showSlides(this.slideShowIndex = n);
+  }
+
+  showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { this.slideShowIndex = 1 }
+    if (n < 1) { this.slideShowIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[this.slideShowIndex - 1].style.display = "block";
+    dots[this.slideShowIndex - 1].className += " active";
   }
 
   scrollToElement(elementId) {
