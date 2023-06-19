@@ -99,10 +99,10 @@ section {
 
 .directory-button {
   border-radius: 5px;
-  background-color: rgb(53, 107, 255);
-  color: white;
+  background-color: #3b5998;
+  color: #ffffff;
   font-size: medium;
-  font-weight: 400;
+  font-weight: bold;
   outline: white 1px solid;
   cursor: pointer;
   opacity: 0.9;
@@ -121,19 +121,15 @@ section {
   grid-column-start: col-start 3;
 }
 
-.directory-button:hover {
+.directory-button:hover,
+.directory-button:focus {
   box-shadow: 5px 5px 5px rgba(240, 240, 240, 0.4);
-  background-color: rgb(66, 188, 245);
+  background-color: #93ccea;
+  color: #000;
   transform: scale(1.2);
   outline: rgb(255, 252, 242) 1px solid;
 }
 
-.directory-button:focus {
-  box-shadow: 5px 5px 5px rgba(240, 240, 240, 0.4);
-  background-color: rgb(66, 188, 245);
-  transform: scale(1.2);
-  outline: rgb(255, 252, 242) 1px solid;
-}
 
 #directory-logo {
   text-decoration: none;
