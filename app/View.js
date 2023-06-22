@@ -97,24 +97,38 @@ class View {
     setTimeout(() => {
       let name = prompt("Hello, What is your name?");
 
-      if (!name) {
-        name = "Anonymous";
-      }
+
+      !name ? name = "Anonymous" : name;
+
 
       let age = prompt(`${name}, What is your age?`);
       !age ? age = 0 : age;
 
       let hobby = prompt(`${name}, What is your favorite hobby?`);
+
       !hobby ? hobby = "unknown hobby" : hobby;
 
       let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
 
       alert(str);
+
+      this.assignment2(name)
     }, 2000);
   }
 
   //conditionals
-  assignment2() {
+  assignment2(name) {
+
+    let numbOfGames = prompt("How many times do you want to play?");
+
+    for (let i = 0; i < numbOfGames; i++) {
+      let randNumber = (Math.floor(Math.random() * 5)) + 1;
+      randNumber = Number.parseInt(randNumber)
+
+      let userGuess = prompt(`${name} guess a number between 1 and 5.`);
+
+      randNumber === userGuess ? alert("Correct") : alert(`Incorrect guess. \n Your guess: ${userGuess}\nsAnswer:${randNumber}`);
+    }
 
   }
 
