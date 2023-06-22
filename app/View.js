@@ -57,7 +57,7 @@ class View {
       this.currentSlide(3);
     });
 
-    this.collinAssignment();
+    this.assignment1();
   }
 
   incrementSlideshow(n) {
@@ -91,17 +91,30 @@ class View {
     }
   }
 
-  collinAssignment() {
+  //prompts
+  assignment1() {
+
     setTimeout(() => {
       let name = prompt("Hello, What is your name?");
+
+      if (!name) {
+        name = "Anonymous";
+      }
+
       let age = prompt(`${name}, What is your age?`);
+      !age ? age = 0 : age;
+
       let hobby = prompt(`${name}, What is your favorite hobby?`);
+      !hobby ? hobby = "unknown hobby" : hobby;
+
       let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
+
       alert(str);
     }, 2000);
+  }
 
-
-
+  //conditionals
+  assignment2() {
 
   }
 
