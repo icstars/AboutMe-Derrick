@@ -57,6 +57,7 @@ class View {
       this.currentSlide(3);
     });
 
+    this.collinAssignment();
   }
 
   incrementSlideshow(n) {
@@ -88,6 +89,20 @@ class View {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  collinAssignment() {
+    setTimeout(() => {
+      let name = prompt("Hello, What is your name?");
+      let age = prompt(`${name}, What is your age?`);
+      let hobby = prompt(`${name}, What is your favorite hobby?`);
+      let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
+      alert(str);
+    }, 2000);
+
+
+
+
   }
 
 }
