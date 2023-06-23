@@ -122,10 +122,10 @@ class View {
     let numbOfGames = prompt("How many times do you want to play?");
 
     for (let i = 0; i < numbOfGames; i++) {
-      
-      let randNumber = (Math.floor(Math.random() * 5)) + 1;
 
-      let userGuess = prompt(`${name} guess a number between 1 and 5.`);
+      let randNumber = (Math.floor(Math.random() * 10)) + 1;
+
+      let userGuess = prompt(`${name} guess a number between 1 and 10.`);
 
       userGuess = Number.parseInt(userGuess);
 
