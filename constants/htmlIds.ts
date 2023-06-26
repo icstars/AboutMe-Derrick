@@ -7,6 +7,7 @@ const HTML_IDS = {
   CONTACT_SESSION: 'contact-section',
   PREV_BTN_SLIDESHOW: 'prev-btn-slideshow',
   NEXT_BTN_SLIDESHOW: 'next-btn-slideshow',
+  HOMEWORK_BTN: 'directory-homework-btn',
   DOT_1: 'dot1',
   DOT_2: 'dot2',
   DOT_3: 'dot3',

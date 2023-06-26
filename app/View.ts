@@ -3,7 +3,7 @@ import { HTML_IDS as $HTML_IDS } from "../constants/htmlIds.js";
 let homeBtn = document.getElementById("directory-logo");
 
 class MissingElementError extends Error {
-  constructor(message) {
+  constructor(message: string) {
     super(message);
     this.name = 'Missing Html Element'
   }
@@ -19,7 +19,7 @@ class View {
       if (elem) {
         this.DOM[$HTML_IDS[elem_id]] = elem;
       } else {
-        throw new MissingElementError(`Element id: ${$id}: ${$id[elem_id]} .`);
+        throw new MissingElementError(`Element id: ${$HTML_IDS}: ${$HTML_IDS[elem_id]} .`);
       }
     }
 
@@ -57,7 +57,10 @@ class View {
       this.currentSlide(3);
     });
 
-    this.assignment1();
+    this.DOM[$HTML_IDS.HOMEWORK_BTN].addEventListener('click', () => {
+      this.chooseAssignment();
+    });
+
   }
 
   incrementSlideshow(n) {
@@ -75,12 +78,12 @@ class View {
     if (n > slides.length) { this.slideShowIndex = 1 }
     if (n < 1) { this.slideShowIndex = slides.length }
     for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+      (slides[i] as HTMLElement).style.display = "none";
     }
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
-    slides[this.slideShowIndex - 1].style.display = "block";
+    (slides[this.slideShowIndex - 1] as HTMLElement).style.display = "block";
     dots[this.slideShowIndex - 1].className += " active";
   }
 
@@ -90,47 +93,87 @@ class View {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+  chooseAssignment() {
+    let assignmentNumb = prompt("Which assignment would you like? 1, 2, or 3. Type only the number.");
+
+    if (assignmentNumb === "1") {
+      this.assignment1()
+    } else if (assignmentNumb === "2") {
+      let name = prompt('What is your name?');
+      this.assignment2(name)
+    } else if (assignmentNumb === "3") {
+      let name = prompt('What is your name?');
+      this.assignment3(name);
+    } else {
+      alert("type a valid number.");
+    }
+
+  }
 
   //prompts
   assignment1() {
 
-    setTimeout(() => {
-      let name = prompt("Hello, What is your name?");
+    let name = prompt("Hello, What is your name?");
+    !name ? name = "Anonymous" : name;
 
+    let age = Number.parseInt(prompt(`${name}, What is your age?`));
+    !age ? age = 0 : age;
 
-      !name ? name = "Anonymous" : name;
+    let hobby = prompt(`${name}, What is your favorite hobby?`);
+    !hobby ? hobby = "unknown hobby" : hobby;
 
+    let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
 
-      let age = prompt(`${name}, What is your age?`);
-      !age ? age = 0 : age;
-
-      let hobby = prompt(`${name}, What is your favorite hobby?`);
-
-      !hobby ? hobby = "unknown hobby" : hobby;
-
-      let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
-
-      alert(str);
-
-      this.assignment2(name)
-    }, 2000);
+    alert(str);
   }
 
   //conditionals
-  assignment2(name) {
+  assignment2(name: string) {
 
-    let numbOfGames = prompt("How many times do you want to play?");
+    let numbOfGames = Number.parseInt(prompt("How many times do you want to play?"));
 
     for (let i = 0; i < numbOfGames; i++) {
 
       let randNumber = (Math.floor(Math.random() * 10)) + 1;
 
-      let userGuess = prompt(`${name} guess a number between 1 and 10.`);
-
-      userGuess = Number.parseInt(userGuess);
+      let userGuess = Number.parseInt(prompt(`${name} guess a number between 1 and 10.`));
 
       randNumber === userGuess ? alert("Correct") : alert(`Incorrect guess. \n Your guess: ${userGuess}\nAnswer:${randNumber}`);
     }
+
+  }
+
+  assignment3(name: string) {
+    let groceryList: string[] = [];
+
+    let groceryItem = prompt(`${name}, Add a grocery item.`);
+
+    if (!groceryItem) {
+      alert("No item added");
+      return;
+    } else {
+      groceryList.push(groceryItem);
+    }
+
+    let stopper = true;
+
+    while (stopper) {
+      alert(groceryList);
+
+      let userReply = prompt("Would you like to add another item? type: yes or no");
+
+      if (userReply.toLowerCase() === "no") {
+        stopper = false;
+      } else {
+        let nextItem = prompt("Add another item.");
+        groceryList.push(nextItem);
+      }
+
+    }
+
+    groceryList.forEach((item, i) => {
+      alert(`Item #${i + 1}: ` + item);
+    })
 
   }
 
