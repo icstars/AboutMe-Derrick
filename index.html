@@ -16,14 +16,38 @@
     <button id="directory-portfolio-btn" class="directory-button">Portfolio</button>
     <button id="directory-contact-btn" class="directory-button">Contact</button>
     <button id="directory-homework-btn" class="directory-button">homework</button>
+    <a id="calendar-link" href="calendar.html">Calendar</a>
   </div>
+
+  <section id="modal-section">
+    <div id="modalHW" class="modal">
+      <div class="modal-content" id="modal-content-hw">
+        <span class="close">&#10005;</span>
+        <h1>Homework assignments</h1>
+        <ol id="homework-assignments-list">
+          <li>Type 1 to view an assignment on Template Literals</li>
+          <li>Type 2 to view an assignment on a random guessing game.</li>
+          <li>Type 3 to view an assignment on a grocery list</li>
+        </ol>
+        <label for="user_input">Type a number that corresponds with a homework assignment.</label>
+
+        <input type="number" id="user_input">
+        <button id="submit_user_input">Submit</button>
+      </div>
+
+    </div>
+
+  </section>
 
   <section id="about-me-section">
     <div id="about-me-section-left-col">
       <img id="profile-picture" src="./images/photoOfDerrick.jpg" alt="A profile picture of Derrick Williams">
     </div>
     <div id="about-me-section-right-col">
-      <h1 id="profileName">I'm Derrick, an Intern working for i.c.stars on web apps, In Milwaukee WI.</h1>
+      <h1 id="profileName" class="expand">I'm Derrick, an Intern working for i.c.stars on web apps.
+      </h1>
+      <h1 class="expand">In Milwaukee WI.
+      </h1>
       <hr>
       <p>As an intern for i.c.stars, I am a non-traditional student of software engineering who thrives on the challenge
         of

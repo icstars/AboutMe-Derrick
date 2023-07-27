@@ -1,4 +1,5 @@
-import { HTML_IDS as $HTML_IDS } from "../constants/htmlIds.js";
+import { HTML_IDS as $HTML_IDS_INDEX } from "../constants/htmlIds.js";
+
 
 let homeBtn = document.getElementById("directory-logo");
 
@@ -9,57 +10,77 @@ class MissingElementError extends Error {
   }
 }
 
-class View {
+export class View {
   DOM = [];
   slideShowIndex = 1;
+  inputBox: HTMLElement = document.createElement('p');
 
   constructor() {
-    for (let elem_id in $HTML_IDS) {
-      let elem = document.getElementById($HTML_IDS[elem_id]);
+    for (let elem_id in $HTML_IDS_INDEX) {
+      let elem = document.getElementById($HTML_IDS_INDEX[elem_id]);
       if (elem) {
-        this.DOM[$HTML_IDS[elem_id]] = elem;
+        this.DOM[$HTML_IDS_INDEX[elem_id]] = elem;
       } else {
-        throw new MissingElementError(`Element id: ${$HTML_IDS}: ${$HTML_IDS[elem_id]} .`);
+        throw new MissingElementError(`Element id: ${$HTML_IDS_INDEX}: ${$HTML_IDS_INDEX[elem_id]} .`);
       }
     }
 
     this.currentSlide(1);
 
-    this.DOM[$HTML_IDS.PORTFOLIO_BTN].addEventListener('click', () => {
-      this.scrollToElement($HTML_IDS.PORTFOLIO_SECTION);
+    this.DOM[$HTML_IDS_INDEX.PORTFOLIO_BTN].addEventListener('click', () => {
+      this.scrollToElement($HTML_IDS_INDEX.PORTFOLIO_SECTION);
     })
 
-    this.DOM[$HTML_IDS.HOME_BTN].addEventListener("click", () => {
+    this.DOM[$HTML_IDS_INDEX.HOME_BTN].addEventListener("click", () => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     });
 
-    this.DOM[$HTML_IDS.CONTACT_BTN].addEventListener('click', () => {
-      this.scrollToElement($HTML_IDS.CONTACT_SESSION);
+    this.DOM[$HTML_IDS_INDEX.CONTACT_BTN].addEventListener('click', () => {
+      this.scrollToElement($HTML_IDS_INDEX.CONTACT_SESSION);
     });
 
-    this.DOM[$HTML_IDS.PREV_BTN_SLIDESHOW].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.PREV_BTN_SLIDESHOW].addEventListener('click', () => {
       this.incrementSlideshow(-1);
     });
 
-    this.DOM[$HTML_IDS.NEXT_BTN_SLIDESHOW].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.NEXT_BTN_SLIDESHOW].addEventListener('click', () => {
       this.incrementSlideshow(1);
     });
 
-    this.DOM[$HTML_IDS.DOT_1].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.DOT_1].addEventListener('click', () => {
       this.currentSlide(1)
     });
 
-    this.DOM[$HTML_IDS.DOT_2].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.DOT_2].addEventListener('click', () => {
       this.currentSlide(2)
     });
 
-    this.DOM[$HTML_IDS.DOT_3].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.DOT_3].addEventListener('click', () => {
       this.currentSlide(3);
     });
 
-    this.DOM[$HTML_IDS.HOMEWORK_BTN].addEventListener('click', () => {
+    this.DOM[$HTML_IDS_INDEX.HOMEWORK_BTN].addEventListener('click', () => {
+      (this.DOM[$HTML_IDS_INDEX.MODAL_HW] as HTMLElement).style.display = "block";
       this.chooseAssignment();
     });
+
+    let span = document.getElementsByClassName("close")[0];
+    span.addEventListener('click', () => {
+      this.DOM[$HTML_IDS_INDEX.MODAL_HW].style.display = "none";
+    });
+
+    window.onclick = (event) => {
+      if (event.target == this.DOM[$HTML_IDS_INDEX.MODAL_HW]) {
+        this.DOM[$HTML_IDS_INDEX.MODAL_HW].style.display = "none";
+      }
+    }
+
+
+    this.inputBox.style.height = "min-content";
+    this.inputBox.style.width = "100%";
+    this.inputBox.style.display = 'flex';
+    this.inputBox.style.flexDirection = 'column';
+    this.inputBox.style.padding = '5px';
 
   }
 
@@ -93,10 +114,37 @@ class View {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-  chooseAssignment() {
-    let assignmentNumb = prompt("Which assignment would you like? 1, 2, or 3. Type only the number.");
 
-    if (assignmentNumb === "1") {
+
+
+  async chooseAssignment() {
+    // let assignmentNumb = prompt("Which assignment would you like? 1, 2, or 3. Type only the number.");
+    this.inputBox.innerHTML = '';
+    this.DOM[$HTML_IDS_INDEX.USER_INPUT_MODAL].value = '';
+
+    let inputNode: Text;
+    this.DOM[$HTML_IDS_INDEX.USER_INPUT_SUBMIT_BTN_MODAL].addEventListener('click', () => {
+      let assignmentNumb = this.DOM[$HTML_IDS_INDEX.USER_INPUT_MODAL].value;
+      //const inputNode = document.createTextNode("This is new.");
+      if (assignmentNumb == 1) {
+        this.assignment1();
+      } else if (assignmentNumb == 2) {
+        let name = prompt('What is your name?');
+        this.assignment2(name)
+      } else if (assignmentNumb == 3) {
+        let name = prompt('What is your name?');
+        this.assignment3(name);
+      } else {
+        alert("type a valid number.");
+      }
+    });
+
+    //input.appendChild(inputNode);
+
+    (this.DOM[$HTML_IDS_INDEX.MODAL_CONTENT_HW] as HTMLElement).appendChild(this.inputBox);
+
+
+    /* if (assignmentNumb === "1") {
       this.assignment1()
     } else if (assignmentNumb === "2") {
       let name = prompt('What is your name?');
@@ -106,17 +154,87 @@ class View {
       this.assignment3(name);
     } else {
       alert("type a valid number.");
-    }
+   } */
 
   }
 
+
+
   //prompts
   assignment1() {
+    this.inputBox.innerText = '';
+    let prompt1 = document.createTextNode("Hello, What is your name?");
+    this.inputBox.appendChild(prompt1);
 
-    let name = prompt("Hello, What is your name?");
-    !name ? name = "Anonymous" : name;
+    let div = document.createElement("div");
+    let div2 = document.createElement("div");
+    let div3 = document.createElement("div");
 
-    let age = Number.parseInt(prompt(`${name}, What is your age?`));
+
+    let input1 = document.createElement("input");
+    input1.type = 'text';
+
+    div.appendChild(input1);
+
+    let submit = document.createElement("button");
+    submit.textContent = "Submit name";
+    submit.style.paddingBottom = '5px';
+    div.appendChild(submit);
+    this.inputBox.appendChild(div);
+
+
+
+    let name: string;
+    let input2: HTMLInputElement;
+    let age: number;
+    let submit2: HTMLButtonElement = document.createElement("button");
+    let input3: HTMLInputElement;
+    let submit3: HTMLButtonElement = document.createElement("button");
+
+
+
+    submit.addEventListener('click', () => {
+      name = input1.value;
+      !name ? name = "Anonymous" : name;
+      this.inputBox.style.gap = '20px';
+
+      prompt1.textContent = `${name}, What is your age?`;
+      input2 = document.createElement("input");
+      input2.type = 'number';
+      div2.appendChild(input2);
+
+      submit2.textContent = "submit age";
+      div2.appendChild(submit2);
+      this.inputBox.appendChild(div2);
+    });
+
+    submit2.addEventListener('click', () => {
+      age = Number.parseInt(input2.value);
+      !age ? age = 0 : age;
+      this.inputBox.style.gap = '20px';
+
+      prompt1.textContent = `${name}, What is your favorite hobby?`;
+      input3 = document.createElement("input");
+      input3.type = 'text';
+      div3.appendChild(input3);
+
+      submit3.textContent = "submit hobby";
+      div3.appendChild(submit3);
+      this.inputBox.appendChild(div3);
+    });
+
+    submit3.addEventListener('click', () => {
+      this.inputBox.style.gap = '20px';
+      let p = document.createElement("p");
+      p.textContent = `Hi, my name is ${name}, I am ${age} years old, and I like ${input3.value}.`
+      this.inputBox.appendChild(p);
+    })
+
+
+    //let name = prompt("Hello, What is your name?");
+
+
+    /* let age = Number.parseInt(prompt(`${name}, What is your age?`));
     !age ? age = 0 : age;
 
     let hobby = prompt(`${name}, What is your favorite hobby?`);
@@ -124,8 +242,9 @@ class View {
 
     let str = `Hi, my name is ${name}, I am ${age} years old, and I like ${hobby}.`;
 
-    alert(str);
+    alert(str); */
   }
+
 
   //conditionals
   assignment2(name: string) {
@@ -180,7 +299,7 @@ class View {
 }
 
 const view = new View();
-
+export { view };
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
